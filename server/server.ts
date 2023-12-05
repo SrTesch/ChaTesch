@@ -17,7 +17,7 @@ app.set('view engine', 'ejs');
 //In this file, I'm dividing the routes between "/messages" and "/user", who is calleds and subdivideds by routes
 
 app.get("/", (req: Request, res: Response) =>{
-    res.status(200).json("Eu sou lindo em todas as requisições");
+    res.status(200).json("Eu sou lindo na requisição base");
 });
 
 app.use("/messages", messagesRouter);

@@ -2,7 +2,7 @@ import { pool } from '../config/database';
 import { User } from '../models/users'
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import { hashPassword } from '../../server';
-
+import { generateToken } from '../utils/jwt';
 const usersServices = {
     newUser: async (user: User)=>{
         try{
@@ -24,17 +24,20 @@ const usersServices = {
             const hashedPassword = hashPassword(user.password);
 
             const [rows] = await conn.query<RowDataPacket[]>(
-                'SELECT * FROM users WHERE email = ? AND password = ?',
-                [user.email, hashedPassword]
-              );
-          
-              if (rows.length === 1) {
-                console.log('Login successful');
-                // jwt goes here!!!
-              } else {
-                console.log('Invalid credentials');
-                throw new Error('Invalid credentials');
-              }
+            'SELECT * FROM users WHERE email = ? AND password = ?',
+            [user.email, hashedPassword]
+            );
+            const email = user.email;
+            const user1 = user.user;
+            if (rows.length === 1) {
+            console.log('Login successful');
+            const userToken = generateToken({ email: email }); // You can customize the token payload
+
+            return { token: userToken, user1, email };
+            } else {
+            console.log('Invalid credentials');
+            throw new Error('Invalid credentials');
+            }
         }catch(error){
             console.log(error)
             throw new Error(`Erro ao logar`);

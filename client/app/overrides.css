@@ -1,0 +1,28 @@
+/* Em overrides.css */
+.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #8a4fff !important;
+    color: #8a4fff;
+
+}
+
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #8a4fff !important;
+}
+  
+  /* Tailwind CSS ou CSS normal */
+.custom-label:focus{
+    color: #000; /* Cor normal do label */
+}
+  
+.custom-input {
+    border-color: #000; /* Cor normal da borda */
+}
+  
+.custom-input:focus {
+    border-color: #8a4fff; /* Cor roxa quando em foco */
+}
+  
+.custom-input:hover {
+    border-color: #8a4fff; /* Cor roxa quando hover */
+}
+  

@@ -95,7 +95,8 @@ export default function Form(props) {
                                 color: '#8a4fff',
                             },
                         }}
-                    />/
+                        style={{marginBottom: 15}}
+                    />
                     {!passwordsMatch && (
                         <span style={{ color: 'red' }}>As senhas não coincidem.</span>
                     )}

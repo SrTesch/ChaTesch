@@ -28,7 +28,8 @@ const userController = {
     login: async (req: Request, res: Response) => {
         try {
             const { user, email, password } = req.body;
-            const login = await usersServices.login(user, email, password);
+            const userInstance = new User(user,email,password)
+            const login = await usersServices.login(userInstance);
 
             console.log(login);
             res.status(200).json(login);

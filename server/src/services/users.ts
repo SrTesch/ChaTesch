@@ -17,6 +17,16 @@ const usersServices = {
             throw new Error(`Erro ao cadastrar novo usuário! Verifique os dados e tente novamente.`);
         }
     },
+    verifyEmail: async (email: string) =>{
+        const conn = await pool.getConnection();
+        const [verifiedEmail] = await conn.query<RowDataPacket[]>("select * from users where email = ?", [email]);
+        conn.release();
+        if(verifiedEmail.length === 0)
+            return verifiedEmail;
+        else
+            return null;
+        
+    },
     login: async (user: User)=>{
         try{
             const conn = await pool.getConnection();
@@ -31,7 +41,7 @@ const usersServices = {
             const user1 = user.user;
             if (rows.length === 1) {
             console.log('Login successful');
-            const userToken = generateToken({ email: email }); // You can customize the token payload
+            const userToken = generateToken({ email: email });
 
             return { token: userToken, user1, email };
             } else {

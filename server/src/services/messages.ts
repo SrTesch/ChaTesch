@@ -8,7 +8,7 @@ const messagesService = {
       const connection = await pool.getConnection();
   
       const [result] = await connection.query<ResultSetHeader>(
-        'INSERT INTO messages (id_message, text, sender_user, receiver_user, image, message_dt) VALUES (null, ?, ?, ?, ?, ?)',
+        'INSERT INTO messages (text, sender_user, receiver_user, image, message_dt) VALUES (?, ?, ?, ?, ?)',
         [text, sender_user, receiver_user, image, message_dt]
       );
   

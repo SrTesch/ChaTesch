@@ -1,7 +1,12 @@
 import React from "react";
-
+import dynamic from "next/dynamic";
 export default function Home(){
+
+    const Teste = dynamic(()=> import("../../components/home"))
+    
     return(
-        <h1>Eu sou lindo</h1>
+        <>
+        <Teste />
+        </>
     )
 }

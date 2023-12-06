@@ -53,7 +53,6 @@ export default function Form(props) {
                         label="Email"
                         name="email"
                         autoComplete="email"
-                        autoFocus
                         InputLabelProps={{
                             style: {
                                 color: '#8a4fff',
@@ -70,7 +69,6 @@ export default function Form(props) {
                         type="password"
                         name="password"
                         autoComplete="password"
-                        autoFocus
                         onChange={e=>{setPassword(e.target.value); handleBlur();}}
                         InputLabelProps={{
                             style: {

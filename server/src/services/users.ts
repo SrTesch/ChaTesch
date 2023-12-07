@@ -25,30 +25,35 @@ const usersServices = {
             return verifiedEmail;
         else
             return null;
-        
+
     },
-    login: async (user: User)=>{
-        try{
+    login: async (user: User) => {
+        try {
             const conn = await pool.getConnection();
 
-            const hashedPassword = hashPassword(user.password);
 
             const [rows] = await conn.query<RowDataPacket[]>(
-            'SELECT * FROM users WHERE email = ? AND password = ?',
-            [user.email, hashedPassword]
+                'SELECT * FROM users WHERE email = ?',
+                [user.email]
             );
             const email = user.email;
             const user1 = user.user;
-            if (rows.length === 1) {
-            console.log('Login successful');
-            const userToken = generateToken({ email: email });
-
-            return { token: userToken, user1, email };
+            if (rows.length > 0) {
+                const hashedPassword = hashPassword(user.password);
+                if(hashedPassword == rows[0].password){
+                    console.log("Successful Login");
+                    const userToken = generateToken({ email: email });
+    
+                    return { token: userToken, user1, email };
+                } else {
+                    console.log('Invalid Password');
+                    throw new Error('Invalid Password');
+                }
             } else {
-            console.log('Invalid credentials');
-            throw new Error('Invalid credentials');
+                console.log('Invalid Email');
+                throw new Error('Invalid Email');
             }
-        }catch(error){
+        } catch (error) {
             console.log(error)
             throw new Error(`Erro ao logar`);
         }
